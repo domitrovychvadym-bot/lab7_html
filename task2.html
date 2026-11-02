@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 2 - Зміна стилів текстових тегів</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 20px; 
+            background: #f0f2f5; 
+        }
+        .card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            max-width: 800px; 
+            margin: 0 auto; 
+        }
+        .interactive-tag { 
+            padding: 10px; 
+            margin: 12px 0; 
+            border: 2px dashed #999; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: background-color 0.3s, color 0.3s, transform 0.2s; 
+            display: block; 
+        }
+        #logArea { 
+            width: 100%; 
+            height: 120px; 
+            font-family: monospace; 
+            margin-top: 15px; 
+            padding: 10px; 
+            box-sizing: border-box; 
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Завдання 2: Динамічна зміна стилів текстових елементів</h2>
+        <p>Взаємодійте з текстовими блоками нижче (клік, подвійний клік, наведення миші, утримання кнопки миші):</p>
+
+        <h1 id="heading" class="interactive-tag"
+            onclick="changeColor(this)"
+            ondblclick="resetStyles(this)"
+            onmouseover="highlight(this, true)"
+            onmouseout="highlight(this, false)">
+            &lt;H1&gt; Заголовок: Клік - новий колір | Двократний клік - скидання
+        </h1>
+
+        <p>
+            <b class="interactive-tag"
+               onmousedown="this.style.backgroundColor='#ffe082'; this.style.color='#b71c1c'; logMsg('onmousedown: Натиснуто кнопку миші на &lt;B&gt;');"
+               onmouseup="this.style.backgroundColor='transparent'; this.style.color='inherit'; logMsg('onmouseup: Відпущено кнопку миші на &lt;B&gt;');">
+                &lt;B&gt; Жирний текст: Натисніть та утримуйте кнопку миші тут
+            </b>
+        </p>
+
+        <p>
+            <i class="interactive-tag"
+               onmouseover="this.style.fontSize='20px'; this.style.color='#0d47a1'; logMsg('onmouseover: Наведено курсор на &lt;I&gt;');"
+               onmouseout="this.style.fontSize='16px'; this.style.color='inherit'; logMsg('onmouseout: Курсор виведено з &lt;I&gt;');">
+                &lt;I&gt; Курсивний текст: Наведіть курсор миші
+            </i>
+        </p>
+
+        <label for="logArea"><b>Консоль подій:</b></label>
+        <textarea id="logArea" readonly></textarea>
+    </div>
+
+    <script>
+        function changeColor(elem) {
+            const colors = ['#e74c3c', '#8e44ad', '#3498db', '#2ecc71', '#d35400'];
+            const randColor = colors[Math.floor(Math.random() * colors.length)];
+            elem.style.color = randColor;
+            logMsg(`onclick: Встановлено колір ${randColor} для <H1>`);
+        }
+
+        function resetStyles(elem) {
+            elem.style.color = '#000';
+            elem.style.backgroundColor = 'transparent';
+            logMsg('ondblclick: Скинуто стилі заголовка <H1>');
+        }
+
+        function highlight(elem, isHover) {
+            elem.style.backgroundColor = isHover ? '#e1f5fe' : 'transparent';
+            elem.style.borderColor = isHover ? '#0288d1' : '#999';
+        }
+
+        function logMsg(msg) {
+            const textarea = document.getElementById('logArea');
+            textarea.value += msg + '\n';
+            textarea.scrollTop = textarea.scrollHeight;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 6 - Варіант 6.7</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+        .card { max-width: 650px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        input[type="text"] { width: 100%; padding: 8px; margin: 8px 0 15px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        textarea { width: 100%; height: 120px; font-family: monospace; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 20px; background-color: #8e44ad; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 15px; }
+        button:hover { background-color: #9b59b6; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Завдання 6 (Варіант 6.7): Обробка масивів</h2>
+        <p><b>Умова варіанту 6.7:</b> Із одновимірного масиву А розміру N побудувати масив В із елементів, більших за 10.</p>
+
+        <form name="arrayForm">
+            <label for="arrayA"><b>Одновимірний масив А :</b></label>
+            <input type="text" id="arrayA" value="4, 15, 8, 23, 10, 0, 42, -5, 11, 7">
+
+            <button type="button" onclick="processArray()">Array Task</button><br><br>
+
+            <label for="outputResult"><b>Результат виконання тег &lt;textarea&gt;:</b></label><br>
+            <textarea id="outputResult" readonly placeholder="Натисніть 'Array Task'..."></textarea>
+        </form>
+    </div>
+
+    <script>
+        function processArray() {
+            const inputVal = document.getElementById('arrayA').value;
+            
+            const arrayA = inputVal.split(',')
+                                  .map(item => parseFloat(item.trim()))
+                                  .filter(item => !isNaN(item));
+
+            const arrayB = arrayA.filter(val => val > 10);
+
+            const resultText = `Вхідний масив A (N = ${arrayA.length}):\n[ ${arrayA.join(', ')} ]\n\n` +
+                               `Сформований масив B (елементи > 10):\n[ ${arrayB.join(', ')} ]\n\n` +
+                               `Кількість елементів у масиві B: ${arrayB.length}`;
+
+            document.getElementById('outputResult').value = resultText;
+            console.log('Масив A:', arrayA);
+            console.log('Масив B (>10):', arrayB);
+        }
+    </script>
+</body>
+</html>
